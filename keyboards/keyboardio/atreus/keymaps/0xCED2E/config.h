@@ -1,0 +1,23 @@
+#pragma once
+#define COMBO_TERM 30
+#define COMBO_ONLY_FROM_LAYER 0
+#define TAPPING_TERM 125
+#define TAPPING_TOGGLE 2
+#define QUICK_TAP_TERM 0
+#define RETRO_TAPPING
+#define PERMISSIVE_HOLD
+
+// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+// #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+// #define AUTO_SHIFT_TIMEOUT 135
+#define LAYER_LOCK_IDLE_TIMEOUT 15000  // 15s
+
+/* SPACE-SAVING FLAGS */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#ifndef NO_DEBUG
+  #define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+  #define NO_PRINT
+#endif // !NO_PRINT
