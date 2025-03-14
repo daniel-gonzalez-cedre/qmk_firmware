@@ -64,13 +64,17 @@ const uint16_t PROGMEM combo_brace_r[]       = {KC_J,    KC_L,    COMBO_END};  /
 const uint16_t PROGMEM combo_brocket_l[]     = {KC_X,    KC_V,    COMBO_END};  /* xv ∷ < */
 const uint16_t PROGMEM combo_brocket_r[]     = {KC_M,    KC_DOT,  COMBO_END};  /* m. ∷ > */
 
+const uint16_t PROGMEM combo_tilde[]         = {KC_Q,    KC_D,    COMBO_END};  /* qd ∷ ~ */
+const uint16_t PROGMEM combo_backtick[]      = {KC_Q,    KC_F,    COMBO_END};  /* qf ∷ ` */
 const uint16_t PROGMEM combo_single_quote[]  = {KC_L,    KC_SCLN, COMBO_END};  /* l; ∷ ' */
 const uint16_t PROGMEM combo_double_quote[]  = {KC_K,    KC_SCLN, COMBO_END};  /* k; ∷ " */
+const uint16_t PROGMEM combo_pipe[]          = {KC_K,    KC_P,    COMBO_END};  /* kp ∷ | */
 const uint16_t PROGMEM combo_backslash[]     = {KC_J,    KC_P,    COMBO_END};  /* jp ∷ \ */
 const uint16_t PROGMEM combo_underscore[]    = {KC_COMM, KC_DOT,  COMBO_END};  /* ,. ∷ _ */
 const uint16_t PROGMEM combo_plus[]          = {KC_MINS, KC_EQL,  COMBO_END};  /* -= ∷ + */
 
-const uint16_t PROGMEM combo_layer_num_lhs[] = {MO(_MED),KC_LALT, COMBO_END};  /* xc ∷ NUM  */
+const uint16_t PROGMEM combo_layer_num_lhs[] = {KC_X,    KC_C,    COMBO_END};  /* xc ∷ NUM  */
+/* const uint16_t PROGMEM combo_layer_num_lhs[] = {MO(_MED),KC_LALT, COMBO_END};  [> ?? ∷ NUM  <] */
 
 /* const uint16_t PROGMEM combo_layer_sym_lhs[] = {KC_J,    KC_K,    COMBO_END};  [> jk ∷ SYM <] */
 /* const uint16_t PROGMEM combo_layer_sym_rhs[] = {KC_D,    KC_F,    COMBO_END};  [> df ∷ SYM  <] */
@@ -93,8 +97,11 @@ combo_t key_combos[] = {
   COMBO(combo_brace_r,       KC_RCBR),
   COMBO(combo_brocket_l,     KC_LABK),
   COMBO(combo_brocket_r,     KC_RABK),
+  COMBO(combo_tilde,         KC_TILD),
+  COMBO(combo_backtick,      KC_GRV),
   COMBO(combo_single_quote,  KC_QUOT),
   COMBO(combo_double_quote,  KC_DQUO),
+  COMBO(combo_pipe,          KC_PIPE),
   COMBO(combo_backslash,     KC_BSLS),
   COMBO(combo_underscore,    KC_UNDS),
   COMBO(combo_plus,          KC_PLUS),
