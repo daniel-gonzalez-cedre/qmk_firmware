@@ -28,8 +28,8 @@ enum layer_names {
   LY_RAIS,
   LY_LOWR,
   LY_NUMB,
-  LY_NAV0,
-  LY_NAV1,
+  LY_MOUS,
+  LY_SCRL,
 };
 
 #define MO_QWER MO(LY_QWER)
@@ -37,24 +37,24 @@ enum layer_names {
 #define MO_RAIS MO(LY_RAIS)
 #define MO_LOWR MO(LY_LOWR)
 #define MO_NUMB MO(LY_NUMB)
-#define MO_NAV0 MO(LY_NAV0)
-#define MO_NAV1 MO(LY_NAV1)
+#define MO_MOUS MO(LY_MOUS)
+#define MO_SCRL MO(LY_SCRL)
 
 #define TO_QWER TO(LY_QWER)
 #define TO_CLMK TO(LY_CLMK)
 #define TO_RAIS TO(LY_RAIS)
 #define TO_LOWR TO(LY_LOWR)
 #define TO_NUMB TO(LY_NUMB)
-#define TO_NAV0 TO(LY_NAV0)
-#define TO_NAV1 TO(LY_NAV1)
+#define TO_MOUS TO(LY_MOUS)
+#define TO_SCRL TO(LY_SCRL)
 
 #define TG_QWER TG(LY_QWER)
 #define TG_CLMK TG(LY_CLMK)
 #define TG_RAIS TG(LY_RAIS)
 #define TG_LOWR TG(LY_LOWR)
 #define TG_NUMB TG(LY_NUMB)
-#define TG_NAV0 TG(LY_NAV0)
-#define TG_NAV1 TG(LY_NAV1)
+#define TG_MOUS TG(LY_MOUS)
+#define TG_SCRL TG(LY_SCRL)
 
 #define CTRLTAB LCTL(KC_TAB)
 #define CTRL_Q LCTL(KC_Q)
@@ -120,9 +120,9 @@ const uint16_t PROGMEM cmb_dash[]        = {KC_M,    KC_COMM, COMBO_END};  /* m,
 const uint16_t PROGMEM cmb_underscore[]  = {KC_COMM, KC_DOT,  COMBO_END};  /* ,. ∷ _ */
 /* const uint16_t PROGMEM cmb_plus[]        = {KC_MINS, KC_EQL,  COMBO_END};  [> -= ∷ + <] */
 
-const uint16_t PROGMEM cmb_lyr_lowr[]    = {KC_D,    KC_F,    COMBO_END};  /* df ∷ LOWR */
+/* const uint16_t PROGMEM cmb_lyr_lowr[]    = {KC_D,    KC_F,    COMBO_END};  [> df ∷ LOWR <] */
 const uint16_t PROGMEM cmb_lyr_rais[]    = {KC_J,    KC_K,    COMBO_END};  /* jk ∷ RAIS */
-/* const uint16_t PROGMEM cmb_lyr_numb[]    = {KC_K,    KC_L,    COMBO_END};  [> kl ∷ NUMB <] */
+const uint16_t PROGMEM cmb_lyr_numb[]    = {KC_D,    KC_F,    COMBO_END};  /* df ∷ NUMB */
 
 const uint16_t PROGMEM cmb_caps_word[]   = {KC_Z,    KC_X,    COMBO_END};  /* zx  ∷ CW_TOGG*/
 const uint16_t PROGMEM cmb_caps[]        = {KC_Z, KC_X, KC_C, COMBO_END};  /* zxc ∷ KC_CAPS */
@@ -151,9 +151,12 @@ combo_t key_combos[] = {
   COMBO(cmb_pipe,        KC_PIPE),
   COMBO(cmb_dash,        KC_MINS),
   COMBO(cmb_underscore,  KC_UNDS),
-  COMBO(cmb_lyr_lowr,    OSL(LY_LOWR)),
-  COMBO(cmb_lyr_rais,    OSL(LY_RAIS)),
+  /* COMBO(cmb_lyr_lowr,    OSL(LY_LOWR)), */
+  /* COMBO(cmb_lyr_rais,    OSL(LY_RAIS)), */
   /* COMBO(cmb_lyr_numb,    OSL(LY_NUMB)), */
+  /* COMBO(cmb_lyr_lowr,    MO_LOWR), */
+  COMBO(cmb_lyr_rais,    MO_RAIS),
+  COMBO(cmb_lyr_numb,    MO_NUMB),
   COMBO(cmb_caps_word,   CW_TOGG),
   COMBO(cmb_caps,        KC_CAPS),
 };
@@ -193,49 +196,53 @@ void spc_reset(tap_dance_state_t *state, void *user_data);
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LY_QWER] = LAYOUT(  /* [> BASE LAYER <] */
-    KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y  ,KC_U   ,KC_I   ,KC_O  ,KC_P   ,
-    KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                KC_H  ,KC_J   ,KC_K   ,KC_L  ,KC_SCLN,
-    KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_N  ,KC_M   ,KC_COMM,KC_DOT,KC_SLSH,
-    MT_ESCS,MO_NAV0,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,MO_NUMB,KC_MINS,KC_EQL,MT_ENTS
+  [LY_QWER] = LAYOUT(  /* [> BASE QWERTY LAYER <] */
+    KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y  ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,
+    KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                KC_H  ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,
+    KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_N  ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
+    QK_GESC,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,MO_LOWR,KC_RALT,MO_MOUS,KC_ENT 
   ),
-  [LY_CLMK] = LAYOUT(  /* [> BASE LAYER <] */
-    KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_B   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y  ,KC_SCLN,
-    KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_G   ,                KC_M  ,KC_N   ,KC_E   ,KC_I  ,KC_O   ,
-    KC_Z   ,KC_X   ,KC_C   ,KC_D   ,KC_V   ,KC_TAB ,KC_BSPC,KC_K  ,KC_H   ,KC_COMM,KC_DOT,KC_SLSH,
-    TO_QWER,MO_NAV0,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,MO_NUMB,KC_MINS,KC_EQL,KC_ENT
+  [LY_CLMK] = LAYOUT(  /* [> BASE COLEMAK LAYER <] */
+    /* KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_B   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN, */
+    /* KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_G   ,                KC_M  ,KC_N   ,KC_E   ,KC_I   ,KC_O   , */
+    /* KC_Z   ,KC_X   ,KC_C   ,KC_D   ,KC_V   ,KC_TAB ,KC_BSPC,KC_K  ,KC_H   ,KC_COMM,KC_DOT ,KC_SLSH, */
+    /* TO_QWER,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,MO_LOWR,KC_RALT,MO_MOUS,KC_ENT */
+    KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_B   ,                KC_K  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,
+    KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_G   ,                KC_M  ,KC_N   ,KC_E   ,KC_I   ,KC_O   ,
+    KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_D   ,KC_TAB ,KC_BSPC,KC_J  ,KC_H   ,KC_COMM,KC_DOT ,KC_SLSH,
+    TO_QWER,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,MO_LOWR,KC_RALT,MO_MOUS,KC_ENT
   ),
   [LY_RAIS] = LAYOUT(  /* [> LHS SYMBOL & NAVIGATION LAYER <] */
-    KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DEL,
-    KC_MINS,KC_PLUS,KC_EQL ,KC_DLR ,KC_TILD,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_TAB,
-    /* KC_LCBR,KC_LBRC,KC_RBRC,KC_RCBR,KC_AMPR,KC_TILD,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, */
-    /* TO_QWER,XXXXXXX,XXXXXXX,TAB_PRV,TAB_NXT,_______,_______,TAB_NXT,TAB_PRV,XXXXXXX,XXXXXXX,XXXXXXX */
-    /* KC_QUOT,KC_LT  ,KC_GT  ,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,XXXXXXX,KC_DEL , */
-    /* KC_EXLM,KC_MINS,KC_PLUS,KC_EQL ,KC_HASH,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,CW_TOGG, */
-    KC_SLSH,KC_LABK,KC_ASTR,KC_RABK,KC_BSLS,CTRLTAB,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS,CW_TOGG,
-    TO_QWER,XXXXXXX,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,QK_LLCK
+    /* KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DEL , */
+    /* KC_MINS,KC_PLUS,KC_EQL ,KC_DLR ,KC_TAB ,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,CW_TOGG, */
+    /* KC_SLSH,KC_LABK,KC_ASTR,KC_RABK,KC_BSLS,KC_TAB ,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS, */
+    /* QK_LLCK,XXXXXXX,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,TAB_NXT,TAB_PRV,XXXXXXX,XXXXXXX,XXXXXXX */
+    KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DEL ,
+    KC_LABK,KC_LCBR,KC_LBRC,KC_LPRN,KC_QUOT,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,CW_TOGG,
+    KC_RABK,KC_RCBR,KC_RBRC,KC_RPRN,KC_DQUO,KC_TAB ,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS,
+    QK_LLCK,XXXXXXX,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,TAB_NXT,TAB_PRV,XXXXXXX,XXXXXXX,XXXXXXX
   ),
   [LY_LOWR] = LAYOUT(  /* [> RHS NUMBER & SYMBOL LAYER <] */
-    CTRL_Q ,CTRL_W ,CTRL_E ,CTRL_R ,CTRL_T ,                _______,KC_7   ,KC_8   ,KC_9  ,XXXXXXX,
-    CTRL_A ,CTRL_S ,CTRL_D ,_______,_______,                _______,KC_4   ,KC_5   ,KC_6  ,KC_0   ,
-    CTRL_Z ,CTRL_X ,CTRL_C ,CTRL_V ,CTRL_B ,KC_TAB ,KC_DEL ,_______,KC_1   ,KC_2   ,KC_3  ,XXXXXXX,
-    TO_QWER,XXXXXXX,XXXXXXX,TAB_PRV,TAB_NXT,_______,_______,KC_0   ,KC_MINS,KC_COMM,KC_DOT,QK_LLCK
+    KC_PERC,KC_7  ,KC_8   ,KC_9   ,KC_DLR ,                KC_DLR ,KC_7   ,KC_8   ,KC_9  ,KC_PERC,
+    KC_0   ,KC_4  ,KC_5   ,KC_6   ,KC_HASH,                KC_MINS,KC_4   ,KC_5   ,KC_6  ,KC_0   ,
+    KC_DOT ,KC_1  ,KC_2   ,KC_3   ,KC_COMM,KC_TAB ,KC_BSPC,KC_COMM,KC_1   ,KC_2   ,KC_3  ,KC_DOT ,
+    QK_LLCK,KC_DOT,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,KC_0   ,_______,KC_COMM,KC_DOT,XXXXXXX
   ),
   [LY_NUMB] = LAYOUT(  /* [> NUMBER LAYER <] */
-    KC_DLR ,KC_7   ,KC_8   ,KC_9   ,KC_PERC,                KC_DLR ,KC_7   ,KC_8   ,KC_9  ,KC_PERC,
-    KC_0   ,KC_4   ,KC_5   ,KC_6   ,KC_HASH,                KC_MINS,KC_4   ,KC_5   ,KC_6  ,KC_0   ,
-    XXXXXXX,KC_1   ,KC_2   ,KC_3   ,XXXXXXX,KC_TAB ,KC_BSPC,XXXXXXX,KC_1   ,KC_2   ,KC_3  ,XXXXXXX,
-    TO_QWER,KC_DOT ,KC_COMM,KC_MINS,KC_0   ,KC_LCTL,_______,KC_0   ,_______,KC_COMM,KC_DOT,QK_LLCK
+    KC_BRID,KC_BRIU,SCRN_S3,SCRN_S4,SCRN_S5,                KC_DLR ,KC_7   ,KC_8   ,KC_9  ,KC_PERC,
+    XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,                KC_MINS,KC_4   ,KC_5   ,KC_6  ,KC_0   ,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_TAB ,KC_BSPC,KC_COMM,KC_1   ,KC_2   ,KC_3  ,KC_DOT ,
+    QK_LLCK,XXXXXXX,KC_LALT,TAB_PRV,TAB_NXT,_______,_______,KC_0   ,XXXXXXX,KC_COMM,KC_DOT,XXXXXXX
   ),
-  [LY_NAV0] = LAYOUT(  /* [> NAVIGATION LAYER <] */
+  [LY_MOUS] = LAYOUT(  /* [> NAVIGATION LAYER <] */
     KC_BRID,KC_BRIU,SCRN_S3,SCRN_S4,SCRN_S5,                XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,
-    MS_ACL0,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                MS_LEFT,MS_DOWN,MS_UP  ,MS_RGHT,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_BRIU,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    TO_QWER,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_BRID,MO_NAV1,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,QK_LLCK
+    XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,                MS_LEFT,MS_DOWN,MS_UP  ,MS_RGHT,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    QK_LLCK,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,MO_SCRL,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,XXXXXXX
   ),
-  [LY_NAV1] = LAYOUT(  /* [> NAVIGATION LAYER <] */
-    TG_CLMK,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                MS_WHLL,MS_WHLU,MS_WHLD,MS_WHLR,XXXXXXX,
+  [LY_SCRL] = LAYOUT(  /* [> NAVIGATION LAYER <] */
+    TO_CLMK,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                MS_WHLR,MS_WHLU,MS_WHLD,MS_WHLL,XXXXXXX,
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
     TO_QWER,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,XXXXXXX
   ),
