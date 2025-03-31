@@ -34,6 +34,14 @@ enum layer_names {
   LY_SCRL,
 };
 
+enum custom_keycodes {
+  ENT_RES = SAFE_RANGE,
+  /* SMTD_KEYCODES_BEGIN = SAFE_RANGE, */
+  /* CKC_F, */
+  /* CKC_J, */
+  /* SMTD_KEYCODES_END, */
+};
+
 #define MO_QWER MO(LY_QWER)
 #define MO_CLMK MO(LY_CLMK)
 #define MO_RAIS MO(LY_RAIS)
@@ -91,6 +99,7 @@ enum layer_names {
 #define MT_TABA MT(MOD_LALT, KC_TAB)  /* LSFT_T(KC_SPC) */
 #define MT_LSS MT(MOD_LSFT, KC_SPC)  /* LSFT_T(KC_SPC) */
 #define MT_SPC MT(MOD_RSFT, KC_SPC)  /* RSFT_T(KC_SPC) */
+/* #define LT_RSFT LT(LY_RAIS, OSM(MOD_RSFT)) */
 #define TAB_PRV RCS(KC_TAB)
 #define TAB_NXT RCTL(KC_TAB)
 
@@ -110,8 +119,8 @@ const uint16_t PROGMEM cmb_brk_crl_clo[] = {KC_SPC,  KC_L,    COMBO_END};  /* sp
 const uint16_t PROGMEM cmb_brk_ang_opn[] = {KC_LSFT, KC_X,    COMBO_END};  /* shift-x ∷ < */
 const uint16_t PROGMEM cmb_brk_ang_clo[] = {KC_SPC,  KC_DOT,  COMBO_END};  /* space-. ∷ > */
 
-const uint16_t PROGMEM cmb_dbl_quo_opn[] = {KC_LSFT, KC_V,    COMBO_END};  /* shift-v ∷ " */
-const uint16_t PROGMEM cmb_dbl_quo_clo[] = {KC_SPC,  KC_M,    COMBO_END};  /* space-m ∷ " */
+const uint16_t PROGMEM cmb_dbl_quo_opn[] = {KC_LSFT, KC_B,    COMBO_END};  /* shift-b ∷ " */
+const uint16_t PROGMEM cmb_dbl_quo_clo[] = {KC_SPC,  KC_N,    COMBO_END};  /* space-n ∷ " */
 const uint16_t PROGMEM cmb_sgl_quo_opn[] = {KC_LSFT, KC_A,    COMBO_END};  /* shift-a ∷ ' */
 const uint16_t PROGMEM cmb_sgl_quo_clo[] = {KC_SPC,  KC_SCLN, COMBO_END};  /* space-; ∷ ' */
 const uint16_t PROGMEM cmb_tilde[]       = {KC_LSFT, KC_Q,    COMBO_END};  /* shift-q ∷ ~ */
@@ -129,7 +138,7 @@ const uint16_t PROGMEM cmb_lyr_rais[]    = {KC_J,    KC_K,    COMBO_END};  /* jk
 const uint16_t PROGMEM cmb_lyr_numb[]    = {KC_D,    KC_F,    COMBO_END};  /* df ∷ NUMB */
 
 const uint16_t PROGMEM cmb_caps_word[]   = {KC_LSFT, KC_Z,    COMBO_END};  /* shift-z ∷ CAPS W */
-const uint16_t PROGMEM cmb_caps[]        = {KC_Z, KC_X, KC_C, COMBO_END};  /* zxc ∷ CAPS */
+const uint16_t PROGMEM cmb_caps[]        = {KC_Z,    KC_SLSH, COMBO_END};  /* z/      ∷ CAPS */
 
 /* const uint16_t PROGMEM cmb_lyr_sym_lft[] = {KC_J,    KC_K,    COMBO_END};  [> jk ∷ SYM <] */
 /* const uint16_t PROGMEM cmb_lyr_num_rgt[] = {KC_C,    KC_V,    COMBO_END};  [> cv ∷ NUM  <] */
@@ -161,10 +170,85 @@ combo_t key_combos[] = {
   /* COMBO(cmb_lyr_rais,    OSL(LY_RAIS)), */
   /* COMBO(cmb_lyr_numb,    OSL(LY_NUMB)), */
   /* COMBO(cmb_lyr_lowr,    MO_LOWR), */
-  COMBO(cmb_lyr_rais,    MO_RAIS),
-  COMBO(cmb_lyr_numb,    MO_NUMB),
+  /* COMBO(cmb_lyr_rais,    MO_RAIS), */
+  /* COMBO(cmb_lyr_numb,    MO_NUMB), */
   COMBO(cmb_caps_word,   CW_TOGG),
   COMBO(cmb_caps,        KC_CAPS),
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case ENT_RES:
+      if (record->event.pressed) {
+        register_code(KC_ENT);
+      } else {
+        unregister_code(KC_ENT);
+        layer_move(LY_QWER);
+      }
+      break;
+  }
+  return true;
+}
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [LY_QWER] = LAYOUT(  /* [> BASE QWERTY LAYER <] */
+    KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,
+    KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,
+    KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
+    QK_GESC,MO_MOUS,MO_LOWR,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC ,KC_RALT,MO_LOWR,MO_MOUS,KC_ENT 
+  ),
+  [LY_CLMK] = LAYOUT(  /* [> BASE COLEMAK LAYER <] */
+    KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_G   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,
+    KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_D   ,                KC_H  ,KC_N   ,KC_E   ,KC_I   ,KC_O   ,
+    KC_Z   ,KC_X   ,KC_C   ,KC_D   ,KC_V   ,KC_TAB ,KC_BSPC,KC_K  ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
+    TO_QWER,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,KC_RALT,MO_LOWR,MO_MOUS,KC_ENT
+  ),
+  [LY_CLMK_DH] = LAYOUT(  /* [> COLEMAK-DH MOD <] */
+    KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_B   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,
+    KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_G   ,                KC_M  ,KC_N   ,KC_E   ,KC_I   ,KC_O   ,
+    KC_Z   ,KC_X   ,KC_C   ,KC_D   ,KC_V   ,KC_TAB ,KC_BSPC,KC_K  ,KC_H   ,KC_COMM,KC_DOT ,KC_SLSH,
+    TO_QWER,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,KC_RALT,MO_LOWR,MO_MOUS,KC_ENT
+  ),
+  [LY_CLMK_VIM] = LAYOUT(  /* [> COLEMAK-VIM MOD <] */
+    KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_G   ,                KC_DOT,KC_COMM,KC_U   ,KC_Y   ,KC_SCLN,
+    KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_D   ,                KC_M  ,KC_N   ,KC_E   ,KC_I   ,KC_O   ,
+    KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_H  ,KC_J   ,KC_K   ,KC_L   ,KC_SLSH,
+    TO_QWER,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,KC_RALT,MO_LOWR,MO_MOUS,KC_ENT
+  ),
+  [LY_RAIS] = LAYOUT(  /* [> LHS SYMBOL & NAVIGATION LAYER <] */
+    /* KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DEL , */
+    /* KC_MINS,KC_PLUS,KC_EQL ,KC_DLR ,KC_TAB ,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,CW_TOGG, */
+    /* KC_SLSH,KC_LABK,KC_ASTR,KC_RABK,KC_BSLS,KC_TAB ,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS, */
+    /* QK_LLCK,XXXXXXX,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,TAB_NXT,TAB_PRV,XXXXXXX,XXXXXXX,XXXXXXX */
+    KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DEL ,
+    KC_LABK,KC_LCBR,KC_LPRN,KC_LBRC,KC_QUOT,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_BSLS,
+    KC_RABK,KC_RCBR,KC_RPRN,KC_RBRC,KC_DQUO,KC_TAB ,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,CW_TOGG,
+    QK_LLCK,XXXXXXX,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,KC_RSFT,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS
+  ),
+  [LY_LOWR] = LAYOUT(  /* [> RHS NUMBER & SYMBOL LAYER <] */
+    KC_DEL ,KC_7  ,KC_8   ,KC_9   ,KC_DLR ,                KC_DLR ,KC_7  ,KC_8   ,KC_9,KC_PERC,
+    KC_0   ,KC_4  ,KC_5   ,KC_6   ,KC_MINS,                KC_MINS,KC_4  ,KC_5   ,KC_6,KC_0   ,
+    KC_PERC,KC_1  ,KC_2   ,KC_3   ,KC_HASH,KC_TAB ,KC_BSPC,KC_HASH,KC_1  ,KC_2   ,KC_3,KC_SLSH,
+    QK_LLCK,KC_DOT,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,KC_COMM,KC_DOT,_______,KC_0,ENT_RES
+  ),
+  [LY_NUMB] = LAYOUT(  /* [> NUMBER LAYER <] */
+    KC_BRID,KC_BRIU,SCRN_S3,SCRN_S4,SCRN_S5,                KC_DLR ,KC_7  ,KC_8   ,KC_9,KC_PERC,
+    XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,                KC_MINS,KC_4  ,KC_5   ,KC_6,KC_0   ,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_TAB ,KC_BSPC,KC_HASH,KC_1  ,KC_2   ,KC_3,KC_SLSH,
+    QK_LLCK,_______,KC_LALT,TAB_PRV,TAB_NXT,KC_LCTL,_______,KC_COMM,KC_DOT,XXXXXXX,KC_0,KC_ENT
+  ),
+  [LY_MOUS] = LAYOUT(  /* [> NAVIGATION LAYER <] */
+    KC_BRID,KC_BRIU,SCRN_S3,SCRN_S4,SCRN_S5,                XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,
+    XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,                MS_LEFT,MS_DOWN,MS_UP  ,MS_RGHT,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    QK_LLCK,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,MO_SCRL,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,XXXXXXX
+  ),
+  [LY_SCRL] = LAYOUT(  /* [> NAVIGATION LAYER <] */
+    TO_CLMK,TO(LY_CLMK_DH),TO(LY_CLMK_VIM),XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,                MS_WHLR,MS_WHLU,MS_WHLD,MS_WHLL,XXXXXXX,
+    XXXXXXX,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    TO_QWER,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,XXXXXXX,_______,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,XXXXXXX
+  ),
 };
 
 /* TAP DANCE */
@@ -198,71 +282,7 @@ void spc_reset(tap_dance_state_t *state, void *user_data);
 /* tap_dance_action_t tap_dance_actions[] = { */
   /* [TD_SSPC] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, ), */
 /* }; */
-/* TAP DANCE */
 
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LY_QWER] = LAYOUT(  /* [> BASE QWERTY LAYER <] */
-    KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y  ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,
-    KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                KC_H  ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,
-    KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_N  ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
-    QK_GESC,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,KC_RALT,MO_LOWR,MO_MOUS,KC_ENT 
-  ),
-  [LY_CLMK] = LAYOUT(  /* [> BASE COLEMAK LAYER <] */
-    KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_G   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,
-    KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_D   ,                KC_H  ,KC_N   ,KC_E   ,KC_I   ,KC_O   ,
-    KC_Z   ,KC_X   ,KC_C   ,KC_D   ,KC_V   ,KC_TAB ,KC_BSPC,KC_K  ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
-    TO_QWER,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,KC_RALT,MO_LOWR,MO_MOUS,KC_ENT
-  ),
-  [LY_CLMK_DH] = LAYOUT(  /* [> COLEMAK-DH MOD <] */
-    KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_B   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,
-    KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_G   ,                KC_M  ,KC_N   ,KC_E   ,KC_I   ,KC_O   ,
-    KC_Z   ,KC_X   ,KC_C   ,KC_D   ,KC_V   ,KC_TAB ,KC_BSPC,KC_K  ,KC_H   ,KC_COMM,KC_DOT ,KC_SLSH,
-    TO_QWER,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,KC_RALT,MO_LOWR,MO_MOUS,KC_ENT
-  ),
-  [LY_CLMK_VIM] = LAYOUT(  /* [> COLEMAK-VIM MOD <] */
-    KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_G   ,                KC_DOT,KC_COMM,KC_U   ,KC_Y   ,KC_SCLN,
-    KC_A   ,KC_R   ,KC_S   ,KC_T   ,KC_D   ,                KC_M  ,KC_N   ,KC_E   ,KC_I   ,KC_O   ,
-    KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_H  ,KC_J   ,KC_K   ,KC_L   ,KC_SLSH,
-    TO_QWER,MO_NUMB,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,MO_RAIS,KC_SPC,KC_RALT,MO_LOWR,MO_MOUS,KC_ENT
-  ),
-  [LY_RAIS] = LAYOUT(  /* [> LHS SYMBOL & NAVIGATION LAYER <] */
-    /* KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DEL , */
-    /* KC_MINS,KC_PLUS,KC_EQL ,KC_DLR ,KC_TAB ,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,CW_TOGG, */
-    /* KC_SLSH,KC_LABK,KC_ASTR,KC_RABK,KC_BSLS,KC_TAB ,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS, */
-    /* QK_LLCK,XXXXXXX,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,TAB_NXT,TAB_PRV,XXXXXXX,XXXXXXX,XXXXXXX */
-    KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DEL ,
-    KC_LABK,KC_LCBR,KC_LBRC,KC_LPRN,KC_QUOT,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_BSLS,
-    KC_RABK,KC_RCBR,KC_RBRC,KC_RPRN,KC_DQUO,KC_TAB ,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,CW_TOGG,
-    QK_LLCK,XXXXXXX,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,KC_RSFT,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS
-  ),
-  [LY_LOWR] = LAYOUT(  /* [> RHS NUMBER & SYMBOL LAYER <] */
-    KC_DEL ,KC_7  ,KC_8   ,KC_9   ,KC_DLR ,                KC_DLR ,KC_7  ,KC_8   ,KC_9,KC_PERC,
-    KC_0   ,KC_4  ,KC_5   ,KC_6   ,KC_MINS,                KC_MINS,KC_4  ,KC_5   ,KC_6,KC_0   ,
-    KC_PERC,KC_1  ,KC_2   ,KC_3   ,KC_HASH,KC_TAB ,KC_BSPC,KC_HASH,KC_1  ,KC_2   ,KC_3,KC_SLSH,
-    QK_LLCK,KC_DOT,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,KC_COMM,KC_DOT,_______,KC_0,KC_ENT
-  ),
-  [LY_NUMB] = LAYOUT(  /* [> NUMBER LAYER <] */
-    KC_BRID,KC_BRIU,SCRN_S3,SCRN_S4,SCRN_S5,                KC_DLR ,KC_7  ,KC_8   ,KC_9,KC_PERC,
-    XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,                KC_MINS,KC_4  ,KC_5   ,KC_6,KC_0   ,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_TAB ,KC_BSPC,KC_HASH,KC_1  ,KC_2   ,KC_3,KC_SLSH,
-    QK_LLCK,_______,KC_LALT,TAB_PRV,TAB_NXT,KC_LCTL,_______,KC_COMM,KC_DOT,XXXXXXX,KC_0,KC_ENT
-  ),
-  [LY_MOUS] = LAYOUT(  /* [> NAVIGATION LAYER <] */
-    KC_BRID,KC_BRIU,SCRN_S3,SCRN_S4,SCRN_S5,                XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,
-    XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,                MS_LEFT,MS_DOWN,MS_UP  ,MS_RGHT,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    QK_LLCK,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,MO_SCRL,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,XXXXXXX
-  ),
-  [LY_SCRL] = LAYOUT(  /* [> NAVIGATION LAYER <] */
-    TO_CLMK,TO(LY_CLMK_DH),TO(LY_CLMK_VIM),XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,                MS_WHLR,MS_WHLU,MS_WHLD,MS_WHLL,XXXXXXX,
-    XXXXXXX,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    TO_QWER,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,XXXXXXX,_______,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,XXXXXXX
-  ),
-};
-
-/* TAP DANCE */
 td_state_t cur_dance(tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed) {
