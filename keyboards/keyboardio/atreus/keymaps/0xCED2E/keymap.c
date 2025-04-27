@@ -115,35 +115,36 @@ enum custom_keycodes {
 #define THUMB_L KC_LCTL
 #define THUMB_R KC_SPC
 
-const uint16_t PROGMEM cmb_prn_opn[]     = {THUMB_L, KC_D,    COMBO_END};  /* lthumb-d ∷ ( */
-const uint16_t PROGMEM cmb_prn_clo[]     = {THUMB_R, KC_K,    COMBO_END};  /* rthumb-k ∷ ) */
-const uint16_t PROGMEM cmb_brk_sqr_opn[] = {THUMB_L, KC_V,    COMBO_END};  /* lthumb-v ∷ [ */
-const uint16_t PROGMEM cmb_brk_sqr_clo[] = {THUMB_R, KC_M,    COMBO_END};  /* rthumb-m ∷ ] */
-const uint16_t PROGMEM cmb_brk_crl_opn[] = {THUMB_L, KC_C,    COMBO_END};  /* lthumb-c ∷ { */
-const uint16_t PROGMEM cmb_brk_crl_clo[] = {THUMB_R, KC_COMM, COMBO_END};  /* rthumb-; ∷ } */
-const uint16_t PROGMEM cmb_brk_ang_opn[] = {THUMB_L, KC_X,    COMBO_END};  /* lthumb-x ∷ < */
-const uint16_t PROGMEM cmb_brk_ang_clo[] = {THUMB_R, KC_DOT,  COMBO_END};  /* rthumb-. ∷ > */
+const uint16_t PROGMEM cmb_prn_opn[]      = {THUMB_L, KC_F,    COMBO_END};  /* lthumb-f ∷ ( */
+const uint16_t PROGMEM cmb_brk_sqr_opn[]  = {THUMB_L, KC_D,    COMBO_END};  /* lthumb-d ∷ [ */
+const uint16_t PROGMEM cmb_brk_crl_opn[]  = {THUMB_L, KC_S,    COMBO_END};  /* lthumb-s ∷ { */
+const uint16_t PROGMEM cmb_brk_ang_opn[]  = {THUMB_L, KC_A,    COMBO_END};  /* lthumb-a ∷ < */
 
-const uint16_t PROGMEM cmb_sgl_quo[]     = {THUMB_R, KC_SCLN, COMBO_END};  /* rthumb-; ∷ ' */
-const uint16_t PROGMEM cmb_dbl_quo_opn[] = {THUMB_L, KC_F,    COMBO_END};  /* lthumb-f ∷ " */
-const uint16_t PROGMEM cmb_dbl_quo_clo[] = {THUMB_R, KC_J,    COMBO_END};  /* rthumb-j ∷ " */
-/* const uint16_t PROGMEM cmb_sgl_quo_opn[] = {THUMB_L, KC_G,    COMBO_END};  [> lthumb-g ∷ ' <] */
-/* const uint16_t PROGMEM cmb_sgl_quo_clo[] = {THUMB_R, KC_H,    COMBO_END};  [> rthumb-h ∷ ' <] */
-/* const uint16_t PROGMEM cmb_dbl_quo_opn[] = {THUMB_L, KC_B,    COMBO_END};  [> lthumb-b ∷ " <] */
-/* const uint16_t PROGMEM cmb_dbl_quo_clo[] = {THUMB_R, KC_N,    COMBO_END};  [> rthumb-n ∷ " <] */
-const uint16_t PROGMEM cmb_tilde[]       = {THUMB_L, KC_Q,    COMBO_END};  /* lthumb-q ∷ ~ */
-const uint16_t PROGMEM cmb_grave[]       = {THUMB_L, KC_W,    COMBO_END};  /* lthumb-w ∷ ` */
-const uint16_t PROGMEM cmb_bslash[]      = {THUMB_R, KC_P,    COMBO_END};  /* rthumb-p ∷ \ */
-const uint16_t PROGMEM cmb_pipe[]        = {THUMB_R, KC_O,    COMBO_END};  /* rthumb-o ∷ | */
-const uint16_t PROGMEM cmb_plus[]        = {KC_C,    KC_V,    COMBO_END};  /* xc       ∷ + */
-const uint16_t PROGMEM cmb_equal[]       = {KC_X,    KC_C,    COMBO_END};  /* cv       ∷ = */
-const uint16_t PROGMEM cmb_dash[]        = {KC_M,    KC_COMM, COMBO_END};  /* m,       ∷ - */
-const uint16_t PROGMEM cmb_under[]       = {KC_COMM, KC_DOT,  COMBO_END};  /* ,.       ∷ _ */
-const uint16_t PROGMEM cmb_colon[]       = {KC_L,    KC_SCLN, COMBO_END};  /* l;       ∷ : */
+const uint16_t PROGMEM cmb_prn_clo[]      = {THUMB_R, KC_J,    COMBO_END};  /* rthumb-j ∷ ) */
+const uint16_t PROGMEM cmb_brk_sqr_clo[]  = {THUMB_R, KC_K,    COMBO_END};  /* rthumb-k ∷ ] */
+const uint16_t PROGMEM cmb_brk_crl_clo[]  = {THUMB_R, KC_L,    COMBO_END};  /* rthumb-l ∷ } */
+const uint16_t PROGMEM cmb_brk_ang_clo[]  = {THUMB_R, KC_SCLN, COMBO_END};  /* rthumb-; ∷ > */
 
-const uint16_t PROGMEM cmb_caps_w_lft[]  = {KC_LSFT, KC_A,    COMBO_END};  /* lthumb-a ∷ CAPSW */
-const uint16_t PROGMEM cmb_caps_w_rgt[]  = {KC_RSFT, KC_SCLN, COMBO_END};  /* rthumb-; ∷ CAPSW */
-/* const uint16_t PROGMEM cmb_caps[]        = {KC_Z,    KC_SLSH, COMBO_END};  [> z/      ∷ CAPS <] */
+/* const uint16_t PROGMEM cmb_sgl_quo[]      = {THUMB_R, KC_J,    COMBO_END};  [> rthumb-j ∷ ' <] */
+/* const uint16_t PROGMEM cmb_dbl_quo[]      = {THUMB_R, KC_K,    COMBO_END};  [> rthumb-k ∷ " <] */
+
+/* const uint16_t PROGMEM cmb_tilde[]        = {THUMB_L, KC_T,    COMBO_END};  [> rthumb-t ∷ ~ <] */
+const uint16_t PROGMEM cmb_apostrophe[]   = {KC_L,    KC_SCLN, COMBO_END};         /* l;  ∷ ' */
+const uint16_t PROGMEM cmb_quote_double[] = {KC_K, KC_L, KC_SCLN, COMBO_END};      /* kl; ∷ " */
+const uint16_t PROGMEM cmb_grave[]        = {KC_Q, KC_W, KC_E, COMBO_END};         /* qwe ∷ ` */
+const uint16_t PROGMEM cmb_bslash[]       = {KC_DOT,  KC_SLSH, COMBO_END};         /* ./  ∷ \ */
+const uint16_t PROGMEM cmb_pipe[]         = {KC_DOT, KC_COMM, KC_SLSH, COMBO_END}; /* ,./ ∷ | */
+const uint16_t PROGMEM cmb_plus[]         = {KC_M,    KC_COMM, COMBO_END};         /* m,  ∷ + */
+const uint16_t PROGMEM cmb_equal[]        = {KC_K,    KC_L,    COMBO_END};         /* kl  ∷ = */
+const uint16_t PROGMEM cmb_dash[]         = {KC_J,    KC_K,    COMBO_END};         /* jk  ∷ - */
+const uint16_t PROGMEM cmb_under[]        = {KC_COMM, KC_DOT,  COMBO_END};         /* ,.  ∷ _ */
+
+const uint16_t PROGMEM cmb_bsp[]          = {KC_O,    KC_P,    COMBO_END};  /* op  ∷ bsp */
+const uint16_t PROGMEM cmb_del[]          = {KC_I, KC_O, KC_P, COMBO_END};  /* iop ∷ del */
+const uint16_t PROGMEM cmb_tab[]          = {KC_Q,    KC_W,    COMBO_END};  /* qw  ∷ tab */
+
+/* const uint16_t PROGMEM cmb_capsword_l[]  = {THUMB_L, KC_F,    COMBO_END};  [> lthumb-f ∷ CAPSW <] */
+/* const uint16_t PROGMEM cmb_capsword_r[]  = {THUMB_R, KC_J,    COMBO_END};  [> rthumb-j ∷ CAPSW <] */
 
 /* const uint16_t PROGMEM cmb_copy[]        = {THUMB_L, KC_C,    COMBO_END};  [> lthumb-c ∷ copy <] */
 /* const uint16_t PROGMEM cmb_paste[]       = {THUMB_L, KC_V,    COMBO_END};  [> lthumb_v ∷ paste <] */
@@ -163,43 +164,42 @@ const uint16_t PROGMEM cmb_caps_w_rgt[]  = {KC_RSFT, KC_SCLN, COMBO_END};  /* rt
 /* const uint16_t PROGMEM cmb_lyr_lowr_l[]  = {THUMB_L, KC_F,    COMBO_END};  [> lthumb-f ∷ LOWR <] */
 /* const uint16_t PROGMEM cmb_lyr_lowr_r[]  = {THUMB_R, KC_J,    COMBO_END};  [> rthumb-j ∷ LOWR <] */
 /* const uint16_t PROGMEM cmb_lyr_rais[]    = {KC_J,    KC_K,    COMBO_END};  [> jk       ∷ RAIS <] */
-const uint16_t PROGMEM cmb_osm_lalt[]    = {KC_D,    KC_F,    COMBO_END};  /* df       ∷ lalt */
-const uint16_t PROGMEM cmb_osm_ralt[]    = {KC_J,    KC_K,    COMBO_END};  /* jk       ∷ ralt */
+/* const uint16_t PROGMEM cmb_osm_lalt[]    = {KC_D,    KC_F,    COMBO_END};  [> df       ∷ lalt <] */
+/* const uint16_t PROGMEM cmb_osm_ralt[]    = {KC_J,    KC_K,    COMBO_END};  [> jk       ∷ ralt <] */
 /* const uint16_t PROGMEM cmb_lyr_numb[]    = {KC_D,    KC_F,    COMBO_END};  [> df ∷ NUMB <] */
 
 combo_t key_combos[] = {
-  /* COMBO(cmb_shift_lft,   OSM(MOD_LSFT)), */
-  /* COMBO(cmb_shift_rgt,   OSM(MOD_RSFT)), */
-  COMBO(cmb_prn_opn,     KC_LPRN),
-  COMBO(cmb_prn_clo,     KC_RPRN),
-  COMBO(cmb_brk_sqr_opn, KC_LBRC),
-  COMBO(cmb_brk_sqr_clo, KC_RBRC),
-  COMBO(cmb_brk_crl_opn, KC_LCBR),
-  COMBO(cmb_brk_crl_clo, KC_RCBR),
-  COMBO(cmb_brk_ang_opn, KC_LABK),
-  COMBO(cmb_brk_ang_clo, KC_RABK),
-  COMBO(cmb_sgl_quo,     KC_QUOT),
-  COMBO(cmb_dbl_quo_opn, KC_DQUO),
-  COMBO(cmb_dbl_quo_clo, KC_DQUO),
-  COMBO(cmb_grave,       KC_GRV),
-  COMBO(cmb_tilde,       KC_TILD),
-  COMBO(cmb_bslash,      KC_BSLS),
-  COMBO(cmb_pipe,        KC_PIPE),
-  COMBO(cmb_plus,        KC_PLUS),
-  COMBO(cmb_equal,       KC_EQL),
-  COMBO(cmb_dash,        KC_MINS),
-  COMBO(cmb_under,       KC_UNDS),
-  COMBO(cmb_colon,       KC_COLN),
-  COMBO(cmb_caps_w_lft,  CW_TOGG),
-  COMBO(cmb_caps_w_rgt,  CW_TOGG),
-  /* COMBO(cmb_caps,        KC_CAPS), */
-  /* COMBO(cmb_copy,        LCMD(KC_C)), */
-  /* COMBO(cmb_paste,       LCMD(KC_V)), */
-  /* COMBO(cmb_lyr_lowr_l,  MO_LOWR), */
-  /* COMBO(cmb_lyr_lowr_r,  MO_LOWR), */
-  /* COMBO(cmb_lyr_rais,    MO_RAIS), */
-  COMBO(cmb_osm_lalt,    OSM_ALT),
-  COMBO(cmb_osm_ralt,    OSM_ALT),
+  /* COMBO(cmb_shift_lft,    OSM(MOD_LSFT)), */
+  /* COMBO(cmb_shift_rgt,    OSM(MOD_RSFT)), */
+  COMBO(cmb_prn_opn,      KC_LPRN),
+  COMBO(cmb_brk_sqr_opn,  KC_LBRC),
+  COMBO(cmb_brk_crl_opn,  KC_LCBR),
+  COMBO(cmb_brk_ang_opn,  KC_LABK),
+  COMBO(cmb_prn_clo,      KC_RPRN),
+  COMBO(cmb_brk_sqr_clo,  KC_RBRC),
+  COMBO(cmb_brk_crl_clo,  KC_RCBR),
+  COMBO(cmb_brk_ang_clo,  KC_RABK),
+  COMBO(cmb_apostrophe,   KC_QUOT),
+  COMBO(cmb_quote_double, KC_DQUO),
+  COMBO(cmb_grave,        KC_GRV),
+  COMBO(cmb_bslash,       KC_BSLS),
+  COMBO(cmb_pipe,         KC_PIPE),
+  COMBO(cmb_plus,         KC_PLUS),
+  COMBO(cmb_equal,        KC_EQL),
+  COMBO(cmb_dash,         KC_MINS),
+  COMBO(cmb_under,        KC_UNDS),
+  COMBO(cmb_bsp,          KC_BSPC),
+  COMBO(cmb_del,          KC_DEL),
+  COMBO(cmb_tab,          KC_TAB),
+  /* COMBO(cmb_capsword_l,   CW_TOGG), */
+  /* COMBO(cmb_capsword_r,   CW_TOGG), */
+  /* COMBO(cmb_copy,         LCMD(KC_C)), */
+  /* COMBO(cmb_paste,        LCMD(KC_V)), */
+  /* COMBO(cmb_lyr_lowr_l,   MO_LOWR), */
+  /* COMBO(cmb_lyr_lowr_r,   MO_LOWR), */
+  /* COMBO(cmb_lyr_rais,     MO_RAIS), */
+  /* COMBO(cmb_osm_lalt,     OSM_ALT), */
+  /* COMBO(cmb_osm_ralt,     OSM_ALT), */
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -216,12 +216,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+bool caps_word_press_user(uint16_t keycode) {
+  switch (keycode) {
+    // KEYCODES THAT CONTINUE CAPS WORD WITH SHIFT APPLIED.
+    case KC_A ... KC_Z:
+    /* case KC_MINS: */
+      add_weak_mods(MOD_BIT(KC_LSFT));  // APPLY SHIFT TO NEXT KEY.
+      return true;
+
+    // KEYCODES THAT CONTINUE CAPS WORD, WITHOUT SHIFTING.
+    case KC_1 ... KC_0:
+    case KC_BSPC:
+    case KC_DEL:
+    case KC_MINS:
+    case KC_UNDS:
+      return true;
+
+    default:
+      return false;  // DEACTIVATE CAPS WORD.
+  }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LY_QWER] = LAYOUT(  /* [> BASE QWERTY LAYER <] */
     KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y  ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,
     KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                KC_H  ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,
     KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_N  ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
-    QK_GESC,MO_MOUS,MO_LOWR,KC_LSFT,KC_LCTL,KC_LCMD,MO_RAIS,KC_SPC,KC_RSFT,MO_LOWR,MO_MOUS,KC_ENT 
+    QK_GESC,MO_MOUS,MO_LOWR,KC_LSFT,KC_LCTL,KC_LCMD,MO_RAIS,KC_SPC,KC_LSFT,MO_LOWR,MO_MOUS,KC_ENT 
   ),
   [LY_CLMK] = LAYOUT(  /* [> BASE COLEMAK LAYER <] */
     KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_G   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,
@@ -246,10 +267,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* KC_MINS,KC_PLUS,KC_EQL ,KC_DLR ,KC_TAB ,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,CW_TOGG, */
     /* KC_SLSH,KC_LABK,KC_ASTR,KC_RABK,KC_BSLS,KC_TAB ,KC_DEL ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS, */
     /* QK_LLCK,XXXXXXX,KC_LALT,KC_LCMD,KC_LSFT,KC_LCTL,_______,TAB_NXT,TAB_PRV,XXXXXXX,XXXXXXX,XXXXXXX */
-    KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_BSLS,
-    KC_LABK,KC_PLUS,KC_MINS,KC_EQL ,KC_RABK,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_DEL ,
-    KC_SLSH,KC_LABK,KC_QUOT,KC_DQUO,KC_BSLS,KC_TAB ,OSM_ALT,TAB_NXT,TAB_PRV,XXXXXXX,XXXXXXX,XXXXXXX,
-    QK_LLCK,XXXXXXX,MO_LOWR,KC_LSFT,KC_LCTL,KC_LCMD,_______,XXXXXXX,KC_RSFT,XXXXXXX,XXXXXXX,KC_CAPS
+    //
+    /* KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_BSLS, */
+    /* KC_LABK,KC_PLUS,KC_MINS,KC_EQL ,KC_RABK,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_QUOT, */
+    /* CW_TOGG,KC_LABK,KC_QUOT,KC_DQUO,KC_BSLS,TAB_PRV,TAB_NXT,XXXXXXX,KC_DQUO,KC_QUOT,XXXXXXX,CW_TOGG, */
+    /* QK_LLCK,XXXXXXX,MO_LOWR,KC_LSFT,KC_LCTL,KC_LCMD,_______,XXXXXXX,KC_RSFT,XXXXXXX,XXXXXXX,KC_CAPS */
+    //
+    KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DQUO,
+    KC_LCBR,KC_LPRN,KC_RPRN,KC_RCBR,KC_GRV ,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_QUOT,
+    KC_LABK,KC_LBRC,KC_RBRC,KC_RABK,TAB_PRV,KC_TAB ,KC_DEL ,TAB_NXT,KC_EQL ,KC_UNDS,KC_GRV ,KC_BSLS,
+    QK_LLCK,XXXXXXX,XXXXXXX,KC_LSFT,KC_LCTL,KC_LCMD,_______,XXXXXXX,KC_RSFT,XXXXXXX,XXXXXXX,KC_CAPS
   ),
   [LY_LOWR] = LAYOUT(  /* [> RHS NUMBER & SYMBOL LAYER <] */
     KC_PERC,KC_7,KC_8   ,KC_9   ,KC_DLR ,                KC_DLR ,KC_7,KC_8   ,KC_9,KC_PERC,
