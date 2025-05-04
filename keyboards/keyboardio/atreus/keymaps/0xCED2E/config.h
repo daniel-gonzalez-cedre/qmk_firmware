@@ -5,7 +5,7 @@
 #define LAYER_LOCK_IDLE_TIMEOUT 16000  // 16s
 
 // #define COMBO_ONLY_FROM_LAYER 0
-#define COMBO_TERM 12
+#define COMBO_TERM 14
 
 #define TAPPING_TERM 160
 #define TAPPING_TOGGLE 2
