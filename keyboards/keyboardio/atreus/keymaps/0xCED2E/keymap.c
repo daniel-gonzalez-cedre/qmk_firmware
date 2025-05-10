@@ -45,8 +45,9 @@ enum custom_keycodes {
 enum tapdance_keycodes {
   LOW_CMD,
   SFT_RAI,
-  RAI2LOW,
+  RAI_SFT,
   RAI_LOW,
+  RAI2LOW,
   TD_CAPS,
 };
 
@@ -157,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q   ,KC_W  ,KC_E   ,KC_R   ,KC_T   ,                KC_Y  ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,
     KC_A   ,KC_S  ,KC_D   ,KC_F   ,KC_G   ,                KC_H  ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,
     KC_Z   ,KC_X  ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_N  ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
-    QK_GESC,KC_TAB,MO_MOUS,KC_LCMD,KC_LCTL,KC_LSFT,TD(RAI_LOW),KC_SPC,TD(RAI_LOW),MO_MOUS,KC_BSPC,KC_ENT 
+    QK_GESC,KC_TAB,MO_MOUS,KC_LCMD,KC_LCTL,KC_LSFT,TD(RAI_SFT),KC_SPC,MO_LOWR,MO_MOUS,KC_BSPC,KC_ENT 
   ),
   [LY_CLMK] = LAYOUT(  /* [> BASE COLEMAK LAYER <] */
     KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_G   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,
@@ -179,9 +180,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [LY_RAIS] = LAYOUT(  /* [> LHS SYMBOL & NAVIGATION LAYER <] */
     KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DQUO,
-    KC_TAB ,KC_PLUS,KC_MINS,KC_EQL ,KC_BSPC,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_QUOT,
-    KC_SLSH,KC_UNDS,KC_UNDS,KC_ASTR,KC_BSLS,KC_TAB ,KC_BSPC,KC_DEL ,TAB_NXT,TAB_PRV,KC_PIPE,KC_BSLS,
-    QK_LLCK,XXXXXXX,XXXXXXX,KC_LCMD,KC_LCTL,KC_LSFT,_______,KC_SPC ,XXXXXXX,XXXXXXX,XXXXXXX,KC_CAPS
+    KC_TAB ,KC_PLUS,KC_MINS,KC_EQL ,KC_TAB ,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_QUOT,
+    KC_BSLS,KC_UNDS,KC_UNDS,KC_ASTR,KC_DEL ,KC_TAB ,KC_BSPC,CW_TOGG,TAB_NXT,TAB_PRV,KC_PIPE,KC_BSLS,
+    QK_LLCK,XXXXXXX,XXXXXXX,KC_LCMD,KC_LCTL,KC_LSFT,_______,KC_SPC ,XXXXXXX,XXXXXXX,KC_DEL ,KC_CAPS
   ),
   [LY_LOWR] = LAYOUT(  /* [> RHS NUMBER & SYMBOL LAYER <] */
     KC_PERC,KC_7,KC_8   ,KC_9   ,KC_DLR ,                KC_DLR ,KC_7   ,KC_8   ,KC_9,KC_PERC,
@@ -314,20 +315,19 @@ void td_shift_rais_reset(tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void td_rais_togg_lowr_finished(tap_dance_state_t *state, void *user_data) {
+void td_rais_shift_finished(tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     layer_on(LY_RAIS);
   } else {
-    layer_invert(LY_LOWR);
+    register_code(KC_RSFT);
   }
 }
 
-void td_rais_togg_lowr_reset(tap_dance_state_t *state, void *user_data) {
+void td_rais_shift_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     layer_off(LY_RAIS);
   } else {
-    /* layer_off(LY_RAIS); */
-    layer_invert(LY_LOWR);
+    unregister_code(KC_RSFT);
   }
 }
 
@@ -344,6 +344,23 @@ void td_rais_lowr_reset(tap_dance_state_t *state, void *user_data) {
     layer_off(LY_RAIS);
   } else {
     layer_off(LY_LOWR);
+  }
+}
+
+void td_rais_togg_lowr_finished(tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    layer_on(LY_RAIS);
+  } else {
+    layer_invert(LY_LOWR);
+  }
+}
+
+void td_rais_togg_lowr_reset(tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    layer_off(LY_RAIS);
+  } else {
+    /* layer_off(LY_RAIS); */
+    layer_invert(LY_LOWR);
   }
 }
 
@@ -367,8 +384,9 @@ void td_caps_reset(tap_dance_state_t *state, void *user_data) {
 tap_dance_action_t tap_dance_actions[] = {
   [LOW_CMD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lowr_cmd_finished, td_lowr_cmd_reset),
   [SFT_RAI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_shift_rais_finished, td_shift_rais_reset),
-  [RAI2LOW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rais_togg_lowr_finished, td_rais_togg_lowr_reset),
+  [RAI_SFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rais_shift_finished, td_rais_shift_reset),
   [RAI_LOW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rais_lowr_finished, td_rais_lowr_reset),
+  [RAI2LOW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rais_togg_lowr_finished, td_rais_togg_lowr_reset),
   [TD_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_caps_finished, td_caps_reset),
 };
 /* END TAP DANCE */
