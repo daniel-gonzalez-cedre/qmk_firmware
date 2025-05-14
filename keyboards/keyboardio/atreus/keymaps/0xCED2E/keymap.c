@@ -63,14 +63,14 @@ const uint16_t PROGMEM cmb_prn_clo[]       = {KC_J,    KC_L,    COMBO_END};  /* 
 const uint16_t PROGMEM cmb_brk_sqr_clo[]   = {KC_M,    KC_DOT,  COMBO_END};  /* m. ∷ ] */
 const uint16_t PROGMEM cmb_brk_crl_clo[]   = {KC_U,    KC_O,    COMBO_END};  /* uo ∷ } */
 
-const uint16_t PROGMEM cmb_lt[]            = {KC_N,    KC_M,    COMBO_END};  /* nm ∷ > */
-const uint16_t PROGMEM cmb_gt[]            = {KC_V,    KC_B,    COMBO_END};  /* vb ∷ < */
+const uint16_t PROGMEM cmb_lt[]            = {KC_Z,    KC_X,    COMBO_END};  /* zx ∷ > */
+const uint16_t PROGMEM cmb_gt[]            = {KC_DOT,  KC_SLSH, COMBO_END};  /* ./ ∷ < */
 
 const uint16_t PROGMEM cmb_quo_sgl[]       = {KC_L,    KC_SCLN, COMBO_END};  /* l; ∷ ' */
 const uint16_t PROGMEM cmb_quo_dbl[]       = {KC_D,    KC_F,    COMBO_END};  /* df ∷ " */
 const uint16_t PROGMEM cmb_grave[]         = {KC_Q,    KC_W,    COMBO_END};  /* qw ∷ ` */
-const uint16_t PROGMEM cmb_bslash[]        = {KC_DOT,  KC_SLSH, COMBO_END};  /* ./ ∷ \ */
-const uint16_t PROGMEM cmb_pipe[]          = {KC_C,    KC_V,    COMBO_END};  /* cv ∷ | */
+const uint16_t PROGMEM cmb_bslash[]        = {KC_C,    KC_V,    COMBO_END};  /* cv ∷ \ */
+const uint16_t PROGMEM cmb_pipe[]          = {KC_V,    KC_B,    COMBO_END};  /* vb ∷ | */
 const uint16_t PROGMEM cmb_equal[]         = {KC_S,    KC_D,    COMBO_END};  /* sd ∷ = */
 const uint16_t PROGMEM cmb_plus[]          = {KC_X,    KC_C,    COMBO_END};  /* xc ∷ + */
 const uint16_t PROGMEM cmb_dash[]          = {KC_K,    KC_L,    COMBO_END};  /* kl ∷ - */
@@ -103,7 +103,7 @@ combo_t key_combos[] = {
   COMBO(cmb_quo_dbl,       KC_DQUO),
   COMBO(cmb_grave,         KC_GRV),
   COMBO(cmb_bslash,        KC_BSLS),
-  /* COMBO(cmb_pipe,          KC_PIPE), */
+  COMBO(cmb_pipe,          KC_PIPE),
   COMBO(cmb_equal,         KC_EQL),
   COMBO(cmb_plus,          KC_PLUS),
   COMBO(cmb_dash,          KC_MINS),
