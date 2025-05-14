@@ -78,7 +78,7 @@ const uint16_t PROGMEM cmb_under[]         = {KC_COMM, KC_DOT,  COMBO_END};  /* 
 
 const uint16_t PROGMEM cmb_tab[]           = {KC_F,    KC_G,    COMBO_END};  /* fg ∷ tab */
 const uint16_t PROGMEM cmb_bsp[]           = {KC_H,    KC_J,    COMBO_END};  /* hj ∷ bsp */
-/* const uint16_t PROGMEM cmb_del[]           = {KC_H,    KC_J,    COMBO_END};  [> hj ∷ del <] */
+const uint16_t PROGMEM cmb_del[]           = {KC_Y,    KC_U,    COMBO_END};  /* yu ∷ del */
 
 /* const uint16_t PROGMEM cmb_mod_cmd[]       = {KC_LCTL  , KC_LSFT, COMBO_END};  [> ctl sft ∷ cmd <] */
 /* const uint16_t PROGMEM cmb_mod_capsword[]  = {KC_RSFT, KC_SPC,  COMBO_END};  [> sft spc ∷ cw <] */
@@ -110,7 +110,7 @@ combo_t key_combos[] = {
   COMBO(cmb_under,         KC_UNDS),
   COMBO(cmb_tab,           KC_TAB),
   COMBO(cmb_bsp,           KC_BSPC),
-  /* COMBO(cmb_del,           KC_DEL), */
+  COMBO(cmb_del,           KC_DEL),
   /* COMBO(cmb_mod_cmd,       KC_LCMD), */
   /* COMBO(cmb_mod_capsword,  CW_TOGG), */
   /* COMBO(cmb_lyr_rais,      MO_RAIS), */
