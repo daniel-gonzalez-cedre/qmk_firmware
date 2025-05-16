@@ -431,7 +431,7 @@ void td_caps_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 void td_lowr_toggle_finished(tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1 || state->count == 2) {
+  if (state->count == 1) {
     layer_on(LY_LOWR);
   } else {
     if (layer_state_is(LY_LOWR)) {
@@ -443,7 +443,7 @@ void td_lowr_toggle_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void td_lowr_toggle_reset(tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1 || state->count == 2) {
+  if (state->count == 1) {
     layer_off(LY_LOWR);
   } else {
   }
