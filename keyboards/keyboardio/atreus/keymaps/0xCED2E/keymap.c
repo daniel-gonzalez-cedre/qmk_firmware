@@ -32,6 +32,7 @@ enum layer_names {
   LY_LOWR,
   LY_MOUS,
   LY_SCRL,
+  LY_CNCL,
 };
 
 enum custom_keycodes {
@@ -44,7 +45,9 @@ enum custom_keycodes {
 
 enum tapdance_keycodes {
   LOW_CMD,
-  SFT_RAI,
+  LS_RAIS,
+  RS_RAIS,
+  LOWR_TG,
   RAI_SFT,
   RAI_LOW,
   RAI2LOW,
@@ -78,11 +81,15 @@ const uint16_t PROGMEM cmb_under[]         = {KC_COMM, KC_DOT,  COMBO_END};  /* 
 
 const uint16_t PROGMEM cmb_tab[]           = {KC_F,    KC_G,    COMBO_END};  /* fg ∷ tab */
 const uint16_t PROGMEM cmb_bsp[]           = {KC_H,    KC_J,    COMBO_END};  /* hj ∷ bsp */
-const uint16_t PROGMEM cmb_del[]           = {KC_Y,    KC_U,    COMBO_END};  /* yu ∷ del */
+const uint16_t PROGMEM cmb_del[]           = {KC_N,    KC_M,    COMBO_END};  /* nm ∷ del */
+const uint16_t PROGMEM cmb_mous_l[]        = {MO_LOWR, KC_DEL,  COMBO_END};  /* __ ∷ mo_mous */
+const uint16_t PROGMEM cmb_mous_r[]        = {KC_LCMD, MO_LOWR, COMBO_END};  /* __ ∷ mo_mous */
+const uint16_t PROGMEM cmb_lowr_to[]       = {KC_R,    KC_T,    COMBO_END};  /* rt ∷ to_lowr */
+const uint16_t PROGMEM cmb_rais_to[]       = {KC_Y,    KC_U,    COMBO_END};  /* yu ∷ to_rais */
 
 /* const uint16_t PROGMEM cmb_mod_cmd[]       = {KC_LCTL  , KC_LSFT, COMBO_END};  [> ctl sft ∷ cmd <] */
 /* const uint16_t PROGMEM cmb_mod_capsword[]  = {KC_RSFT, KC_SPC,  COMBO_END};  [> sft spc ∷ cw <] */
-/* const uint16_t PROGMEM cmb_mod_capsword[]  = {TD(SFT_RAI), KC_SPC,  COMBO_END};  [> sft spc ∷ cw <] */
+/* const uint16_t PROGMEM cmb_mod_capsword[]  = {TD(RS_RAIS), KC_SPC,  COMBO_END};  [> sft spc ∷ cw <] */
 
 /* const uint16_t PROGMEM cmb_lyr_rais[]      = {KC_C,    KC_V,    COMBO_END}; */
 /* const uint16_t PROGMEM cmb_lyr_lowr[]      = {KC_C,    KC_V,    COMBO_END}; [> cv ∷ ly_lowr <] */
@@ -111,6 +118,10 @@ combo_t key_combos[] = {
   COMBO(cmb_tab,           KC_TAB),
   COMBO(cmb_bsp,           KC_BSPC),
   COMBO(cmb_del,           KC_DEL),
+  COMBO(cmb_mous_l,        MO_MOUS),
+  COMBO(cmb_mous_r,        MO_MOUS),
+  COMBO(cmb_lowr_to,       TO_LOWR),
+  COMBO(cmb_rais_to,       TO_RAIS),
   /* COMBO(cmb_mod_cmd,       KC_LCMD), */
   /* COMBO(cmb_mod_capsword,  CW_TOGG), */
   /* COMBO(cmb_lyr_rais,      MO_RAIS), */
@@ -155,10 +166,11 @@ bool caps_word_press_user(uint16_t keycode) {
 /* KEYMAP */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LY_QWER] = LAYOUT(  /* [> BASE QWERTY LAYER <] */
-    KC_Q   ,KC_W  ,KC_E   ,KC_R   ,KC_T   ,                KC_Y  ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,
-    KC_A   ,KC_S  ,KC_D   ,KC_F   ,KC_G   ,                KC_H  ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,
-    KC_Z   ,KC_X  ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC,KC_N  ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
-    QK_GESC,KC_TAB,MO_MOUS,KC_LCMD,KC_LCTL,KC_LSFT,TD(RAI_SFT),KC_SPC,MO_LOWR,MO_MOUS,KC_BSPC,KC_ENT 
+    KC_Q   ,KC_W   ,KC_E   ,KC_R  ,KC_T                           ,KC_Y  ,KC_U   ,KC_I       ,KC_O  ,KC_P   ,
+    KC_A   ,KC_S   ,KC_D   ,KC_F  ,KC_G                           ,KC_H  ,KC_J   ,KC_K       ,KC_L  ,KC_SCLN,
+    KC_Z   ,KC_X   ,KC_C   ,KC_V  ,KC_B   ,KC_TAB     ,KC_BSPC    ,KC_N  ,KC_M   ,KC_COMM    ,KC_DOT,KC_SLSH,
+    QK_GESC,KC_LCMD,MO_LOWR,KC_TAB,KC_LCTL,TD(LS_RAIS),TD(RS_RAIS),KC_SPC,KC_BSPC,TD(LOWR_TG),KC_DEL,KC_ENT 
+    /* QK_GESC,KC_LCMD,MO_LOWR,KC_TAB,KC_LCTL,KC_LSFT,TD(RS_RAIS),KC_SPC,KC_BSPC,MO_LOWR,KC_DEL,KC_ENT  */
   ),
   [LY_CLMK] = LAYOUT(  /* [> BASE COLEMAK LAYER <] */
     KC_Q   ,KC_W   ,KC_F   ,KC_P   ,KC_G   ,                KC_J  ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,
@@ -179,28 +191,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO_QWER,MO_MOUS,MO_LOWR,KC_LCMD,KC_LCTL,KC_LSFT,KC_LSFT,KC_SPC,MO_RAIS,MO_LOWR,MO_MOUS,KC_ENT
   ),
   [LY_RAIS] = LAYOUT(  /* [> LHS SYMBOL & NAVIGATION LAYER <] */
-    KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DQUO,
-    KC_TAB ,KC_PLUS,KC_MINS,KC_EQL ,KC_TAB ,                KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_QUOT,
-    KC_BSLS,KC_UNDS,KC_UNDS,KC_ASTR,KC_DEL ,KC_TAB ,KC_BSPC,CW_TOGG,TAB_NXT,TAB_PRV,KC_PIPE,KC_BSLS,
-    QK_LLCK,XXXXXXX,XXXXXXX,KC_LCMD,KC_LCTL,KC_LSFT,_______,KC_SPC ,XXXXXXX,XXXXXXX,KC_DEL ,KC_CAPS
+    KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC                ,KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_DQUO,
+    KC_TAB ,KC_PLUS,KC_MINS,KC_EQL ,KC_TILD                ,KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_QUOT,
+    KC_BSLS,KC_PIPE,KC_UNDS,KC_ASTR,CW_TOGG,_______,_______,CW_TOGG,TAB_NXT,TAB_PRV,KC_PIPE,KC_BSLS,
+    TO_QWER,XXXXXXX,XXXXXXX,_______,MO_CNCL,KC_LSFT,_______,KC_SPC ,KC_BSPC,XXXXXXX,KC_DEL ,TO_QWER
   ),
   [LY_LOWR] = LAYOUT(  /* [> RHS NUMBER & SYMBOL LAYER <] */
-    KC_PERC,KC_7,KC_8   ,KC_9   ,KC_DLR ,                KC_DLR ,KC_7   ,KC_8   ,KC_9,KC_PERC,
-    KC_0   ,KC_4,KC_5   ,KC_6   ,KC_MINS,                KC_MINS,KC_4   ,KC_5   ,KC_6,KC_0   ,
-    KC_SLSH,KC_1,KC_2   ,KC_3   ,KC_HASH,_______,KC_BSPC,KC_HASH,KC_1   ,KC_2   ,KC_3,KC_SLSH,
-    QK_LLCK,KC_0,_______,KC_LCMD,KC_LCTL,KC_LSFT,XXXXXXX,KC_SPC ,_______,XXXXXXX,KC_0,TO_QWER
+    KC_PERC,KC_7  ,KC_8   ,KC_9   ,KC_DLR                 ,KC_DLR ,KC_7   ,KC_8   ,KC_9  ,KC_PERC,
+    KC_0   ,KC_4  ,KC_5   ,KC_6   ,KC_MINS                ,KC_MINS,KC_4   ,KC_5   ,KC_6  ,KC_0   ,
+    KC_SLSH,KC_1  ,KC_2   ,KC_3   ,KC_HASH,_______,_______,KC_HASH,KC_1   ,KC_2   ,KC_3  ,KC_SLSH,
+    TO_QWER,KC_DOT,_______,_______,MO_CNCL,KC_LSFT,KC_RSFT,KC_SPC ,_______,_______,KC_DOT,TO_QWER
   ),
   [LY_MOUS] = LAYOUT(  /* [> NAVIGATION LAYER <] */
-    KC_BRID,KC_BRIU,SCRN_S3,SCRN_S4,SCRN_S5,                XXXXXXX,KC_MPLY,KC_MUTE,KC_VOLD,KC_VOLU,
-    XXXXXXX,XXXXXXX,KC_MUTE,KC_VOLD,KC_VOLU,                MS_LEFT,MS_DOWN,MS_UP  ,MS_RGHT,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TAB_NXT,TAB_PRV,XXXXXXX,XXXXXXX,
-    QK_LLCK,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,MO_SCRL,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,KC_MPLY
+    KC_BRID,KC_BRIU,SCRN_S3,SCRN_S4,SCRN_S5                ,XXXXXXX,KC_MPLY,KC_MUTE,KC_VOLD,KC_VOLU,
+    KC_VOLD,KC_VOLU,XXXXXXX,KC_MUTE,XXXXXXX                ,MS_LEFT,MS_DOWN,MS_UP  ,MS_RGHT,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TAB_PRV,TAB_NXT,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    TO_QWER,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_MUTE,MO_SCRL,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,KC_MPLY
   ),
   [LY_SCRL] = LAYOUT(  /* [> NAVIGATION LAYER <] */
-    TO_CLMK,TO(LY_CLMK_DH),TO(LY_CLMK_VIM),XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,                MS_WHLR,MS_WHLU,MS_WHLD,MS_WHLL,XXXXXXX,
+    TO_CLMK,TO(LY_CLMK_DH),TO(LY_CLMK_VIM),XXXXXXX,XXXXXXX                ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX                ,MS_WHLR,MS_WHLU,MS_WHLD,MS_WHLL,XXXXXXX,
     XXXXXXX,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
     TO_QWER,XXXXXXX       ,XXXXXXX        ,XXXXXXX,XXXXXXX,XXXXXXX,_______,MS_BTN1,MS_BTN2,XXXXXXX,XXXXXXX,XXXXXXX
+  ),
+  [LY_CNCL] = LAYOUT(  /* [> CANCEL LAYER <] */
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX                ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX                ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,TO_QWER,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    TO_QWER,XXXXXXX,XXXXXXX,XXXXXXX,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TO_QWER
   ),
 };
 
@@ -299,7 +317,39 @@ void td_lowr_cmd_reset(tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void td_shift_rais_finished(tap_dance_state_t *state, void *user_data) {
+void td_shift_rais_l_finished(tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code(KC_LSFT);
+  } else {
+    layer_on(LY_RAIS);
+  }
+}
+
+void td_shift_rais_l_reset(tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code(KC_LSFT);
+  } else {
+    layer_off(LY_RAIS);
+  }
+}
+
+void td_rais_shift_l_finished(tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    layer_on(LY_RAIS);
+  } else {
+    register_code(KC_LSFT);
+  }
+}
+
+void td_rais_shift_l_reset(tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    layer_off(LY_RAIS);
+  } else {
+    unregister_code(KC_LSFT);
+  }
+}
+
+void td_shift_rais_r_finished(tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code(KC_RSFT);
   } else {
@@ -307,7 +357,7 @@ void td_shift_rais_finished(tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void td_shift_rais_reset(tap_dance_state_t *state, void *user_data) {
+void td_shift_rais_r_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code(KC_RSFT);
   } else {
@@ -315,7 +365,7 @@ void td_shift_rais_reset(tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void td_rais_shift_finished(tap_dance_state_t *state, void *user_data) {
+void td_rais_shift_r_finished(tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     layer_on(LY_RAIS);
   } else {
@@ -323,7 +373,7 @@ void td_rais_shift_finished(tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void td_rais_shift_reset(tap_dance_state_t *state, void *user_data) {
+void td_rais_shift_r_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     layer_off(LY_RAIS);
   } else {
@@ -380,11 +430,33 @@ void td_caps_reset(tap_dance_state_t *state, void *user_data) {
   }
 }
 
+void td_lowr_toggle_finished(tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1 || state->count == 2) {
+    layer_on(LY_LOWR);
+  } else {
+    if (layer_state_is(LY_LOWR)) {
+      layer_off(LY_LOWR);
+    } else {
+      layer_on(LY_LOWR);
+    }
+  }
+}
+
+void td_lowr_toggle_reset(tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1 || state->count == 2) {
+    layer_off(LY_LOWR);
+  } else {
+  }
+
+}
+
 /* TAP DANCE FUNCTIONALITY */
 tap_dance_action_t tap_dance_actions[] = {
   [LOW_CMD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lowr_cmd_finished, td_lowr_cmd_reset),
-  [SFT_RAI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_shift_rais_finished, td_shift_rais_reset),
-  [RAI_SFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rais_shift_finished, td_rais_shift_reset),
+  [LS_RAIS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_shift_rais_l_finished, td_shift_rais_l_reset),
+  [RS_RAIS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_shift_rais_r_finished, td_shift_rais_r_reset),
+  [LOWR_TG] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lowr_toggle_finished, td_lowr_toggle_reset),
+  [RAI_SFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rais_shift_r_finished, td_rais_shift_r_reset),
   [RAI_LOW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rais_lowr_finished, td_rais_lowr_reset),
   [RAI2LOW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rais_togg_lowr_finished, td_rais_togg_lowr_reset),
   [TD_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_caps_finished, td_caps_reset),
