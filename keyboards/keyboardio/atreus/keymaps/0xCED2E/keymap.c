@@ -85,8 +85,8 @@ const uint16_t PROGMEM cmb_del[]           = {KC_N,    KC_M,    COMBO_END};  /* 
 
 const uint16_t PROGMEM cmb_mous_l[]        = {KC_BSPC, KC_DOT,  COMBO_END};  /* __ ∷ mo_mous */
 const uint16_t PROGMEM cmb_mous_r[]        = {KC_DEL,  KC_X,    COMBO_END};  /* __ ∷ mo_mous */
-const uint16_t PROGMEM cmb_lowr_to[]       = {KC_R,    KC_T,    COMBO_END};  /* rt ∷ to_lowr */
-const uint16_t PROGMEM cmb_rais_to[]       = {KC_Y,    KC_U,    COMBO_END};  /* yu ∷ to_rais */
+/* const uint16_t PROGMEM cmb_lowr_to[]       = {KC_R,    KC_T,    COMBO_END};  [> rt ∷ to_lowr <] */
+/* const uint16_t PROGMEM cmb_rais_to[]       = {KC_Y,    KC_U,    COMBO_END};  [> yu ∷ to_rais <] */
 
 /* const uint16_t PROGMEM cmb_mod_cmd[]       = {KC_LCTL  , KC_LSFT, COMBO_END};  [> ctl sft ∷ cmd <] */
 /* const uint16_t PROGMEM cmb_mod_capsword[]  = {KC_RSFT, KC_SPC,  COMBO_END};  [> sft spc ∷ cw <] */
@@ -121,8 +121,8 @@ combo_t key_combos[] = {
   COMBO(cmb_del,           KC_DEL),
   COMBO(cmb_mous_l,        MO_MOUS),
   COMBO(cmb_mous_r,        MO_MOUS),
-  COMBO(cmb_lowr_to,       TO_LOWR),
-  COMBO(cmb_rais_to,       TO_RAIS),
+  /* COMBO(cmb_lowr_to,       TO_LOWR), */
+  /* COMBO(cmb_rais_to,       TO_RAIS), */
   /* COMBO(cmb_mod_cmd,       KC_LCMD), */
   /* COMBO(cmb_mod_capsword,  CW_TOGG), */
   /* COMBO(cmb_lyr_rais,      MO_RAIS), */
@@ -167,10 +167,10 @@ bool caps_word_press_user(uint16_t keycode) {
 /* KEYMAP */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LY_QWER] = LAYOUT(  /* [> BASE QWERTY LAYER <] */
-    KC_Q   ,KC_W  ,KC_E   ,KC_R  ,KC_T                   ,KC_Y  ,KC_U       ,KC_I   ,KC_O   ,KC_P   ,
-    KC_A   ,KC_S  ,KC_D   ,KC_F  ,KC_G                   ,KC_H  ,KC_J       ,KC_K   ,KC_L   ,KC_SCLN,
-    KC_Z   ,KC_X  ,KC_C   ,KC_V  ,KC_B   ,KC_TAB ,KC_BSPC,KC_N  ,KC_M       ,KC_COMM,KC_DOT ,KC_SLSH,
-    QK_GESC,KC_DEL,KC_LCMD,KC_TAB,KC_LCTL,KC_LSFT,KC_LSFT,KC_SPC,TD(RAI_LOW),TG_LOWR,KC_BSPC,KC_ENT 
+    KC_Q   ,KC_W  ,KC_E   ,KC_R   ,KC_T                       ,KC_Y  ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,
+    KC_A   ,KC_S  ,KC_D   ,KC_F   ,KC_G                       ,KC_H  ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,
+    KC_Z   ,KC_X  ,KC_C   ,KC_V   ,KC_B   ,KC_TAB ,KC_BSPC    ,KC_N  ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,
+    QK_GESC,KC_TAB,KC_LCMD,KC_LSFT,KC_LCTL,MO_LOWR,TD(RAI_LOW),KC_SPC,KC_LSFT,KC_DEL ,KC_BSPC,KC_ENT 
     /* QK_GESC,KC_LCMD,MO_LOWR,KC_TAB,KC_LCTL,KC_LSFT,TD(RS_RAIS),KC_SPC,KC_BSPC,MO_LOWR,KC_DEL,KC_ENT  */
   ),
   [LY_CLMK] = LAYOUT(  /* [> BASE COLEMAK LAYER <] */
