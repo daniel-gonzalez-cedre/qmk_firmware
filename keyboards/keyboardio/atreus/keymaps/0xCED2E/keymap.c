@@ -71,7 +71,7 @@ const uint16_t PROGMEM cmb_gt[]            = {KC_H,    KC_J,    COMBO_END};  /* 
 
 const uint16_t PROGMEM cmb_quo_sgl[]       = {KC_L,    KC_SCLN, COMBO_END};  /* l; ∷ ' */
 const uint16_t PROGMEM cmb_quo_dbl[]       = {KC_J,    KC_K,    COMBO_END};  /* jk ∷ " */
-const uint16_t PROGMEM cmb_grave[]         = {KC_H,    KC_J,    COMBO_END};  /* hj ∷ ` */
+const uint16_t PROGMEM cmb_grave[]         = {KC_V,    KC_B,    COMBO_END};  /* vb ∷ ` */
 /* const uint16_t PROGMEM cmb_tilde[]         = {KC_Z,    KC_X,    COMBO_END};  [> zx ∷ ~ <] */
 const uint16_t PROGMEM cmb_bslash[]        = {KC_M,    KC_COMM, COMBO_END};  /* m, ∷ \ */
 const uint16_t PROGMEM cmb_pipe[]          = {KC_N,    KC_M,    COMBO_END};  /* nm ∷ | */
